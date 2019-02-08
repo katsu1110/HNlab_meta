@@ -23,9 +23,9 @@ c = 1;
 ext = {'.mat', '.fig', '.m'};
 for f = 1:length(checkfolder)
     for i = 1:length(ext)
-        list = dir([checkthispath '/' checkfolder{f} '/**/*' ext{i}]);
-        for j = 1:length(list)
-            try
+        try
+            list = dir([checkthispath '/' checkfolder{f} '/**/*' ext{i}]);
+            for j = 1:length(list)
                 b = judgeCorrupted([list(j).folder '/' list(j).name], ext{i}, list(j).bytes);
                 if b==1
                     L{c} = [list(j).folder '/' list(j).name];
@@ -34,9 +34,9 @@ for f = 1:length(checkfolder)
                 else
                     disp(['Not corrupted: ' [list(j).folder '/' list(j).name]])
                 end
-            catch
-                continue
             end
+        catch
+            continue
         end
     end
 end

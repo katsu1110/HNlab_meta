@@ -26,8 +26,13 @@ for i = 1:len_alltr
     v = ex.Trials(i).(seq);
     lenv = length(v);
     if lenv < moden
-        stmmat(i, 1:lenv) = v;
-        stmmat(i, lenv:end) = v(end);
+%         stmmat(i, 1:lenv) = v;
+%         stmmat(i, lenv:end) = v(end);
+    try
+        stmmat(i, :) = interp1(1:length(v), v, moden, 'previous');
+    catch
+        continue
+    end
     elseif lenv > moden
         stmmat(i, :) = v(1:moden);
     else
